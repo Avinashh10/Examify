@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Examify
+
+Examify is an online examination and quiz platform for practicing multiple-choice questions, tracking a timed attempt, and reviewing results.
 
 ## Getting Started
 
-First, run the development server:
+Install the project dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev` — start the development server.
+- `npm run build` — create a production build.
+- `npm run start` — serve the production build.
+- `npm run lint` — run ESLint.
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+- Browse exams by subject and difficulty.
+- Answer one multiple-choice question at a time and move between questions without losing selections.
+- Complete every question before manually submitting. When time expires, the attempt submits automatically and unanswered questions are counted as unanswered.
+- Review the score, percentage, answer counts, and each question after submission.
+- Use a responsive layout for mobile, tablet, and desktop screens.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Routes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `/` — homepage.
+- `/exams` — exam listing.
+- `/exam/[id]` — exam interface for the requested exam ID, such as `/exam/javascript-basics`.
+- `/result` — result summary and question review for the latest submitted attempt in the current browser tab.
 
-## Deploy on Vercel
+## Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```text
+app/                  App Router pages, root layout, and global styles
+components/           Shared navigation, exam cards, question UI, and timer
+data/exams.ts         Exam definitions and MCQ question data
+data/exam-results.ts  Result data types and session storage key
+public/               Static assets
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Exam content is maintained in `data/exams.ts`. Each exam has an ID, title, category, description, duration in minutes, difficulty, and a list of questions. Each question contains its options and correct answer.
+
+Submitted results, including question review data, are stored in browser `sessionStorage`. They remain available in that tab for page refreshes, but are not stored in a database or shared between browser sessions.
+
+## Technology
+
+- Next.js App Router
+- React and TypeScript
+- Tailwind CSS
